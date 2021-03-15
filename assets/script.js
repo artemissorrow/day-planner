@@ -5,10 +5,12 @@ currentDay.textContent = moment().format("dddd, MMMM Do YYYY");
 var scheduleTime = (document.getElementsByClassName("hour"));
 var startTime = moment().hour(8);
 
+// iterate through HTMLcollection of hour blocks and fill in the times 
 for (h = 0; h < scheduleTime.length; h++) {
     scheduleTime[h].textContent = startTime.add(1, "hour").format("ha");
 }
 
+// compare hour block times to current time to set the colors
 for (i = 1; i < scheduleTime.length; i++) {
     if (currentTime < scheduleTime[i].innerHTML && currentTime) {
         scheduleTime[i].nextElementSibling.className = "future col-10";
@@ -26,8 +28,7 @@ for (i = 1; i < scheduleTime.length; i++) {
 
 } 
 
-
-
+// save events to local storage
 $(".saveBtn").on("click", function (e) {
     var target = $(e.target);
     var parent = target.parents(".time-block");
@@ -40,6 +41,7 @@ $(".saveBtn").on("click", function (e) {
 
 });
 
+// get events from local storage and populate textarea
 function populate() {
     var keys = Object.keys(localStorage);
 
