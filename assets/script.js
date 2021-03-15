@@ -17,7 +17,16 @@ for (i = 1; i < scheduleTime.length; i++) {
     } else {
         scheduleTime[i].nextElementSibling.className = "past col-10";
     }
-}
+
+    if (currentTime === "9am"){
+        scheduleTime[0].nextElementSibling.className = "present col-10";
+    }  else {
+        scheduleTime[0].nextElementSibling.className = "past col-10";
+    }
+
+} 
+
+
 
 $(".saveBtn").on("click", function (e) {
     var target = $(e.target);
@@ -27,37 +36,20 @@ $(".saveBtn").on("click", function (e) {
     var textValue = textInput.val();
     var time = timePar.text();
 
-    // console.log(textValue);
-    // console.log(time);
-
     localStorage.setItem(time, textValue);
 
 });
 
 function populate() {
     var keys = Object.keys(localStorage);
-    var timeBlocks = $(".hour");
-    var row = timeBlocks.parent();
-    var textBox = row.find("textarea")
 
-    var savedTime = []
-    for (var k = 0; k < timeBlocks.length; k++) {
-        savedTime.push(timeBlocks[k].textContent);
-    }
-
-    console.log(keys);
-    console.log(savedTime);
-    console.log(textBox);
-
-    for (var j = 0; j < savedTime.length; j++) {
-        if (savedTime[j] == keys[j]) {
-            $(textBox).val("hello world");
+    if (keys.length) {
+        for (var i = 0; i < keys.length; i++) {
+            var textArea = document.getElementById(keys[i]);
+            textArea.value = localStorage.getItem(keys[i]);
         }
 
     }
 }
 
 populate();
-
-
-// localStorage.getItem(keys[j]
